@@ -37,7 +37,7 @@ def register(request):
                 user_model=User.objects.get(username=username)
                 new_profile=Profile.objects.create(user=user_model, email_address=email)
                 new_profile.save()
-                return redirect('home')
+                return redirect('profile', user_model.username)
         else:
             messages.info(request, "Password not Matching!")
             return redirect('register')
@@ -45,3 +45,31 @@ def register(request):
 
     context={}
     return render(request, 'register.html', context)
+
+
+def profile(request, username):
+
+    user_object=User.objects.get(username=username)
+    user_profile=Profile.objects.get(user=user_object)
+
+
+    context={"user_profile":user_profile}
+    return render(request, "profile.html", context)
+
+
+def login(request):
+
+    if request.method=="POST":
+        username=request.POST['username']
+        password=request.POST['password']
+
+        user=auth.authenticate(username=username, password=password)
+
+        if user is not None:
+            auth.login(request, user)
+            return redirect('profile', username)
+        else:
+            messages.info(request, 'Credentials Invalid!')
+            return redirect('login')
+
+    return render(request, "login.html")

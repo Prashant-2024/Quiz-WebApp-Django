@@ -15,3 +15,9 @@ class Profile(models.Model):
     )
     gender=models.CharField(max_length=6, choices=GENDER, blank=True, null=True)
     
+    def __str__(self):
+        return self.user.username
+    
+    @property
+    def full_name(self):
+        return f"{self.user.first_name} {self.user.last_name}"
