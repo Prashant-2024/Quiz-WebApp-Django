@@ -1,11 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, auth
 from .models import Profile
 
 # Create your views here.
 
 def register(request):
+
+    if request.user.is_authenticated:
+        return redirect('profile', request.user.username)
 
     if request.method=="POST":
         email=request.POST['email']
@@ -46,18 +50,26 @@ def register(request):
     context={}
     return render(request, 'register.html', context)
 
-
+@login_required(login_url='login')
 def profile(request, username):
 
-    user_object=User.objects.get(username=username)
+    # profile user
+    user_object2=User.objects.get(username=username)
+    user_profile2=Profile.objects.get(user=user_object2)
+
+    # request user
+    user_object=User.objects.get(username=request.user)
     user_profile=Profile.objects.get(user=user_object)
 
 
-    context={"user_profile":user_profile}
+    context={"user_profile":user_profile, "user_profile2":user_profile2}
     return render(request, "profile.html", context)
 
 
 def login(request):
+
+    if request.user.is_authenticated:
+        return redirect('profile', request.user.username)
 
     if request.method=="POST":
         username=request.POST['username']
@@ -72,4 +84,9 @@ def login(request):
             messages.info(request, 'Credentials Invalid!')
             return redirect('login')
 
-    return render(request, "login.html")
+    return render(request, "login.html")\
+
+@login_required(login_url='login')
+def logout(request):
+    auth.logout(request)
+    return redirect('login')

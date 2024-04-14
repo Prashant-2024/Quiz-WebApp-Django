@@ -1,7 +1,11 @@
-{% extends "index.html" %} {% block content %}
+{% extends "index.html" %} 
+
+{% block title %} {{user_profile2.user.username}}'s Profile - Quiz AI {% endblock title %}
+
+{% block content %}
 <section id="profile">
   <div class="container">
-    <h1 class="display-4 text-center my-2 py-5 fw-bold">{{user_profile.user.username}}'s Profile</h1>
+    <h1 class="display-4 text-center my-2 py-5 fw-bold">{{user_profile2.user.username}}'s Profile</h1>
     <div class="d-flex gap-2 justify-content-center py-5">
       <button
         class="btn btn-success d-inline-flex align-items-center"
@@ -20,18 +24,18 @@
       <div class="row">
         <div class="col">
           <img
-            src="{{user_profile.profile_img.url}}"
+            src="{{user_profile2.profile_img.url}}"
             alt="User-Profile"
             width="200px"
           />
-          <h2 class="fs-3">{{user_profile.user.username}}'s</h2>
+          <h2 class="fs-3">{{user_profile2.user.username}}'s</h2>
         </div>
         <div class="col">
-          <h2>{{user_profile.user.first_name | default:'Full Name Not Available'}} {{user_profile.user.last_name}}</h2>
-          <p class="fs-5"><i class="bi bi-gender-ambiguous"></i>{{user_profile.gender | default:'Gender Not Available'}}</p>
-          <p class="fs-5"><i class="bi bi-geo-alt-fill"></i>{{user_profile.location | default:'Location Not Available'}}</p>
+          <h2>{{user_profile2.user.first_name | default:'Full Name Not Available'}} {{user_profile2.user.last_name}}</h2>
+          <p class="fs-5"><i class="bi bi-gender-ambiguous"></i>{{user_profile2.gender | default:'Gender Not Available'}}</p>
+          <p class="fs-5"><i class="bi bi-geo-alt-fill"></i>{{user_profile2.location | default:'Location Not Available'}}</p>
           <p class="fs-5">
-            <i class="bi bi-file-earmark-person-fill"></i>{{user_profile.bio | default:'Bio Not Available'}}
+            <i class="bi bi-file-earmark-person-fill"></i>{{user_profile2.bio | default:'Bio Not Available'}}
           </p>
         </div>
       </div>
@@ -69,7 +73,7 @@
           </table>
         </div>
         <div class="col">
-          <h3 class="py-3">{{user_profile.user.username}}'s Performance</h3>
+          <h3 class="py-3">{{user_profile2.user.username}}'s Performance</h3>
         </div>
       </div>
     </div>

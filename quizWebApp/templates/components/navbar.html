@@ -16,7 +16,9 @@
           class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
         >
           <li>
-            <a href="{% url 'home' %}" class="nav-link px-2 text-secondary">Home</a>
+            <a href="{% url 'home' %}" class="nav-link px-2 text-secondary"
+              >Home</a
+            >
           </li>
           <li>
             <a href="./quizHome.html" class="nav-link px-2 text-white">Quiz</a>
@@ -37,12 +39,33 @@
           />
         </form>
 
-        <div class="text-end">
+        <div class="text-end d-flex">
+          {% if request.user.is_authenticated %}
+          <a
+            href="{% url 'profile' request.user.username %}"
+            class="d-block link-body-emphasis text-decoration-none me-2"
+            data-bs-toggle="tooltip"
+            data-bs-placement="bottom"
+            data-bs-title="{{request.user.username}}"
+            aria-expanded="false"
+          >
+            <img
+              src="{{user_profile.profile_img.url}}"
+              alt="user_profile_img"
+              width="40"
+              class="rounded-circle"
+            />
+          </a>
+          <a href="{% url 'logout' %}">
+            <button type="button" class="btn btn-warning">Logout</button>
+          </a>
+          {% else %}
           <a href="{% url 'login' %}">
-            <button type="button" class="btn btn-outline-light me-2">
+            <button type="button" class="btn btn-outline-primary me-2">
               Login
             </button>
           </a>
+          {% endif %}
           <!-- <button type="button" class="btn btn-warning">Sign-up</button> -->
         </div>
       </div>
