@@ -13,11 +13,11 @@
 4. Activate the virtual environment:
     - On macOS and Linux:
         ```
-        source venv/bin/activate
+        source myVenv/bin/activate
         ```
     - On Windows:
         ```
-        venv\Scripts\activate
+        myVenv\Scripts\activate
         ```
 5. Install the project dependencies:
     ```
